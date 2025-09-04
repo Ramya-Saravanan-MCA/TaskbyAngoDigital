@@ -31,7 +31,7 @@ const Product = () => {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    setPopup(`${product.title} added to cart`);
+    setPopup(`${product.title} added to cart ✅`);
     setTimeout(() => setPopup(""), 2500);
   };
 
@@ -57,7 +57,7 @@ const Product = () => {
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="border rounded-xl p-4 shadow hover:shadow-lg transition relative"
+            className="border rounded-xl p-4 shadow hover:shadow-lg transition relative flex flex-col"
           >
             <button
               onClick={() =>
@@ -76,19 +76,21 @@ const Product = () => {
             <img
               src={product.image}
               alt={product.title}
-              className="h-40 mx-auto"
+              className="h-40 mx-auto object-contain"
             />
             <h3 className="font-bold mt-3 text-sm line-clamp-2">
               {product.title}
             </h3>
             <p className="text-gray-700">${product.price}</p>
 
-            <button
-              onClick={() => handleAddToCart(product)}
-              className="mt-3 w-full bg-plum-600 text-white py-2 rounded-lg hover:bg-plum-700 transition"
-            >
-              Add to Cart
-            </button>
+            <div className="mt-auto">
+              <button
+                onClick={() => handleAddToCart(product)}
+                className="w-full bg-plum-600 text-white py-2 rounded-lg hover:bg-plum-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -103,4 +105,5 @@ const Product = () => {
 };
 
 export default Product;
+
 
