@@ -5,6 +5,9 @@ import Login from "./Pages/Login";
 import Products from "./Pages/Product";
 import Cart from "./Pages/Cart";
 import PrivateRoute from "./Components/PvtRoute";
+import Favorites from "./Pages/Favorites";
+
+
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
           }
         />
         <Route path="*" element={<Login />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </BrowserRouter>
   );
