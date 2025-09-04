@@ -17,17 +17,20 @@ const Product = () => {
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
-  // Filter products by search
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-  // Check if product is in favorites
+  const filteredProducts = products.filter((product) => {
+    const query = normalize(search);
+    return (
+      normalize(product.title).includes(query) ||
+      normalize(product.category).includes(query)
+    );
+  });
+
   const isFavorite = (id) => favorites.some((item) => item.id === id);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      {/* Search Bar */}
       <div className="mb-6 flex justify-center">
         <input
           type="text"
@@ -38,14 +41,12 @@ const Product = () => {
         />
       </div>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="border rounded-xl p-4 shadow hover:shadow-lg transition relative"
           >
-            {/* Favorite Button */}
             <button
               onClick={() =>
                 isFavorite(product.id)
@@ -80,7 +81,6 @@ const Product = () => {
         ))}
       </div>
 
-      {/* No results message */}
       {filteredProducts.length === 0 && (
         <p className="text-center text-gray-600 mt-10">
           No products found matching your search.
